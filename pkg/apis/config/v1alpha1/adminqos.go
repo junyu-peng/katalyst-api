@@ -362,7 +362,11 @@ type CPUPluginConfig struct {
 	// PreferUseExistNUMAHintResult prefer to use existing numa hint results
 	// The calculation results may originate from upstream components and be recorded in the pod annotation
 	// +optional
-	PreferUseExistNUMAHintResult *bool `json:"preferUseExistNUMAHintResult,omitempty"`
+	PreferUseExistNUMAHintResult   *bool          `json:"preferUseExistNUMAHintResult,omitempty"`
+	SystemExclusivePool            map[string]int `json:"systemExclusivePool,omitempty"`
+	SystemExclusivePoolShrinkRatio *float64       `json:"systemExclusivePoolShrinkRatio,omitempty"`
+	SystemExclusivePoolShrinkMin   *int64         `json:"systemExclusivePoolShrinkMin,omitempty"`
+	SystemExclusivePoolShrinkMax   *int64         `json:"systemExclusivePoolShrinkMax,omitempty"`
 }
 
 type EvictionConfig struct {
