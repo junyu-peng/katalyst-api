@@ -761,6 +761,18 @@ spec:
                               PreferUseExistNUMAHintResult prefer to use existing numa hint results
                               The calculation results may originate from upstream components and be recorded in the pod annotation
                             type: boolean
+                          systemCoresExclusiveCPUBindingPool:
+                            additionalProperties:
+                              type: integer
+                            type: object
+                          systemCoresExclusiveCPUBindingShrinkMax:
+                            format: int64
+                            type: integer
+                          systemCoresExclusiveCPUBindingShrinkMin:
+                            format: int64
+                            type: integer
+                          systemCoresExclusiveCPUBindingShrinkRatio:
+                            type: number
                         type: object
                     type: object
                   reclaimedResourceConfig:
