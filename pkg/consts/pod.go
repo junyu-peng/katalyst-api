@@ -66,3 +66,8 @@ const (
 const (
 	PodAnnotationSriovVFResultKey = "katalyst.kubewharf.io/sriov_vf_result"
 )
+
+// PodAnnotationCPUWeightDemandCoresKey is a const variable for pod annotation about cpu cores demand to calculate cpu weight.
+const (
+	PodAnnotationCPUWeightDemandCoresKey = "katalyst.kubewharf.io/cpu_weight_demand_cores"
+)
