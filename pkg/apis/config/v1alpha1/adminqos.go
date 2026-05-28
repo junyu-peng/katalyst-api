@@ -969,10 +969,9 @@ type DynamicCPUWeightRule struct {
 
 // CPUWeightTrigger defines the trigger conditions for dynamic CPU weight adjustment
 type CPUWeightTrigger struct {
-	// NodeLabels specifies the node labels that must match to trigger this rule
-	// All specified labels must be present on the node with matching values
+	// MatchLabels is a string-form selector expression used to match node labels
 	// +optional
-	NodeLabels map[string]string `json:"nodeLabels,omitempty"`
+	MatchLabels string `json:"matchLabels,omitempty"`
 }
 
 type CPUBurstConfig struct {
