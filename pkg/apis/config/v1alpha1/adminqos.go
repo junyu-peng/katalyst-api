@@ -941,6 +941,38 @@ type FineGrainedResourceConfig struct {
 	// CPUBurstConfig has cpu burst related configurations
 	// +optional
 	CPUBurstConfig *CPUBurstConfig `json:"cpuBurstConfig,omitempty"`
+	// DynamicCPUWeightConfig has dynamic cpu weight related configurations
+	// +optional
+	DynamicCPUWeightConfig *DynamicCPUWeightConfig `json:"dynamicCPUWeightConfig,omitempty"`
+}
+
+// DynamicCPUWeightConfig defines the configuration for dynamic CPU weight adjustment
+type DynamicCPUWeightConfig struct {
+	// Rules is a list of dynamic CPU weight rules
+	// +optional
+	Rules []DynamicCPUWeightRule `json:"rules,omitempty"`
+}
+
+// DynamicCPUWeightRule defines a single rule for dynamic CPU weight adjustment
+type DynamicCPUWeightRule struct {
+	// Name is the name of this rule
+	Name string `json:"name"`
+	// PodSelector selects the pods to apply this rule to
+	// +optional
+	PodSelector metav1.LabelSelector `json:"podSelector,omitempty"`
+	// Trigger defines the conditions that trigger this rule
+	Trigger CPUWeightTrigger `json:"trigger"`
+	// TargetCPUWeight is the target CPU demand in cores
+	// The value will be converted to cpu.shares (cgroupv1) or cpu.weight (cgroupv2) automatically
+	TargetCPUWeight int64 `json:"targetCPUWeight"`
+}
+
+// CPUWeightTrigger defines the trigger conditions for dynamic CPU weight adjustment
+type CPUWeightTrigger struct {
+	// NodeLabels specifies the node labels that must match to trigger this rule
+	// All specified labels must be present on the node with matching values
+	// +optional
+	NodeLabels map[string]string `json:"nodeLabels,omitempty"`
 }
 
 type CPUBurstConfig struct {
