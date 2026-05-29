@@ -749,19 +749,33 @@ spec:
                               If set to nil, it means that no operation is done on the cpu burst value.
                             type: boolean
                         type: object
-                      dynamicCPUWeightConfig:
-                        description: DynamicCPUWeightConfig has dynamic cpu weight
-                          related configurations
+                      cpuWeightConfig:
+                        description: CPUWeightConfig has cpu weight related configurations
                         properties:
                           rules:
                             description: Rules is a list of dynamic CPU weight rules
                             items:
-                              description: DynamicCPUWeightRule defines a single rule
-                                for dynamic CPU weight adjustment
+                              description: CPUWeightRule defines a single rule for
+                                CPU weight adjustment
                               properties:
                                 name:
                                   description: Name is the name of this rule
                                   type: string
+                                nodeTrigger:
+                                  description: NodeTrigger defines the conditions
+                                    that trigger this rule
+                                  properties:
+                                    matchLabels:
+                                      description: MatchLabels is a string-form selector
+                                        expression used to match node labels
+                                      type: string
+                                  type: object
+                                podCPUDemand:
+                                  description: |-
+                                    PodCPUDemand is the CPU demand for the pod in cores
+                                    The value will be converted to cpu.shares (cgroupv1) or cpu.weight (cgroupv2) automatically
+                                  format: int64
+                                  type: integer
                                 podSelector:
                                   description: PodSelector selects the pods to apply
                                     this rule to
@@ -808,25 +822,8 @@ spec:
                                       type: object
                                   type: object
                                   x-kubernetes-map-type: atomic
-                                targetCPUWeight:
-                                  description: |-
-                                    TargetCPUWeight is the target CPU demand in cores
-                                    The value will be converted to cpu.shares (cgroupv1) or cpu.weight (cgroupv2) automatically
-                                  format: int64
-                                  type: integer
-                                trigger:
-                                  description: Trigger defines the conditions that
-                                    trigger this rule
-                                  properties:
-                                    matchLabels:
-                                      description: MatchLabels is a string-form selector
-                                        expression used to match node labels
-                                      type: string
-                                  type: object
                               required:
                               - name
-                              - targetCPUWeight
-                              - trigger
                               type: object
                             type: array
                         type: object

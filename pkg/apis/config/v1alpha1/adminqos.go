@@ -941,34 +941,34 @@ type FineGrainedResourceConfig struct {
 	// CPUBurstConfig has cpu burst related configurations
 	// +optional
 	CPUBurstConfig *CPUBurstConfig `json:"cpuBurstConfig,omitempty"`
-	// DynamicCPUWeightConfig has dynamic cpu weight related configurations
+	// CPUWeightConfig has cpu weight related configurations
 	// +optional
-	DynamicCPUWeightConfig *DynamicCPUWeightConfig `json:"dynamicCPUWeightConfig,omitempty"`
+	CPUWeightConfig *CPUWeightConfig `json:"cpuWeightConfig,omitempty"`
 }
 
-// DynamicCPUWeightConfig defines the configuration for dynamic CPU weight adjustment
-type DynamicCPUWeightConfig struct {
+// CPUWeightConfig defines the configuration for dynamic CPU weight adjustment
+type CPUWeightConfig struct {
 	// Rules is a list of dynamic CPU weight rules
 	// +optional
-	Rules []DynamicCPUWeightRule `json:"rules,omitempty"`
+	Rules []CPUWeightRule `json:"rules,omitempty"`
 }
 
-// DynamicCPUWeightRule defines a single rule for dynamic CPU weight adjustment
-type DynamicCPUWeightRule struct {
+// CPUWeightRule defines a single rule for CPU weight adjustment
+type CPUWeightRule struct {
 	// Name is the name of this rule
 	Name string `json:"name"`
 	// PodSelector selects the pods to apply this rule to
 	// +optional
 	PodSelector metav1.LabelSelector `json:"podSelector,omitempty"`
-	// Trigger defines the conditions that trigger this rule
-	Trigger CPUWeightTrigger `json:"trigger"`
-	// TargetCPUWeight is the target CPU demand in cores
+	// NodeTrigger defines the conditions that trigger this rule
+	NodeTrigger NodeTrigger `json:"nodeTrigger,omitempty"`
+	// PodCPUDemand is the CPU demand for the pod in cores
 	// The value will be converted to cpu.shares (cgroupv1) or cpu.weight (cgroupv2) automatically
-	TargetCPUWeight int64 `json:"targetCPUWeight"`
+	PodCPUDemand int64 `json:"podCPUDemand,omitempty"`
 }
 
-// CPUWeightTrigger defines the trigger conditions for dynamic CPU weight adjustment
-type CPUWeightTrigger struct {
+// NodeTrigger defines the trigger conditions at node level
+type NodeTrigger struct {
 	// MatchLabels is a string-form selector expression used to match node labels
 	// +optional
 	MatchLabels string `json:"matchLabels,omitempty"`
